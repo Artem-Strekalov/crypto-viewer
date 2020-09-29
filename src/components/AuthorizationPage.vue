@@ -64,8 +64,7 @@ body {
       border-radius: 8px;
     }
     .sing-up {
-      margin-left: 114px;
-      margin-top: 64px;
+      margin: 64px 0 0 114px;
       width: 105px;
       height: 42px;
       background: linear-gradient(88.43deg, #2f3453 11.5%, #242845 76.7%);
@@ -88,9 +87,7 @@ body {
       }
     }
     .sing-in {
-      margin-top: 64px;
-      margin-left: 42px;
-      margin-right: 114px;
+      margin: 64px 114px 0 42px; 
       width: 105px;
       height: 42px;
       background: linear-gradient(88.43deg, #2f3453 11.5%, #242845 76.7%);
@@ -111,9 +108,6 @@ body {
         );
         color: #ffffff;
       }
-      /* при фокусе */
-      /* background: linear-gradient(271.88deg, #3887FE 4.26%, #3BA0FF 51.37%, #5FB2FF 99.01%);
-      color: #FFFFFF; */
     }
   }
 }
