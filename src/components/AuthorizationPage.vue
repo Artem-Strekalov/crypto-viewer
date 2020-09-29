@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="block">  
-      <h1>sas</h1>
     </div>
   </div>
 </template>
