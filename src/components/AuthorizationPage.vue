@@ -8,6 +8,11 @@
         <button class="sing-up">SING UP</button>
         <button class="sing-in">SING IN</button>
       </div>
+      <div class="name-page">
+        <h1>CYPTO VIEWER</h1>
+        <hr />
+        <h2>Your currency dashboard</h2>
+      </div>
     </div>
   </div>
 </template>
@@ -18,7 +23,9 @@ export default {
 };
 </script>
 <style lang="scss">
+$maxW:  2500px;
 body {
+  max-width: $maxW;
   background: radial-gradient(
     63.88% 129.61% at 25.55% 31.91%,
     #20135c 0%,
@@ -87,7 +94,7 @@ body {
       }
     }
     .sing-in {
-      margin: 64px 114px 0 42px; 
+      margin: 64px 114px 0 42px;
       width: 105px;
       height: 42px;
       background: linear-gradient(88.43deg, #2f3453 11.5%, #242845 76.7%);
@@ -108,6 +115,39 @@ body {
         );
         color: #ffffff;
       }
+    }
+  }
+  .name-page {
+    margin-left: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    h1 {
+      margin-top: 70px;
+      font-family: Raleway;
+      font-style: normal;
+      font-weight: 800;
+      font-size: 72px;
+      letter-spacing: 0.05em;
+      border-radius: 5px;
+      color: #1288e8;
+    }
+    hr {
+      margin-top: 17px;
+      margin-bottom: 24px;
+      height: 0px;
+      width: 175px;
+      border: 2px solid #1288e8;
+      border-radius: 8px;
+    }
+    h2 {
+      font-family: "Roboto";
+      font-style: normal;
+      font-weight: 300;
+      font-size: 24px;
+      color: #ffffff;
+      text-shadow: 0px 4px 20px rgba(1, 143, 255, 0.15);
     }
   }
 }
