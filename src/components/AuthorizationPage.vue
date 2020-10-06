@@ -33,14 +33,19 @@ export default {
 .content {
   height: 100vh;
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  @media (max-width: 1024px) {
+    .content{
+      flex-direction: column;
+    }
+  }
   .authorization-window {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 480px;
     height: 595px;
+    margin-left: 106px;
     background: linear-gradient(180deg, #1e1156 0%, rgba(28, 35, 64, 0) 100%);
     filter: drop-shadow(0px 25px 25px rgba(0, 3, 32, 0.5));
     border-radius: 8px;
@@ -171,7 +176,52 @@ export default {
     }
   }
   .main-inscription {
-    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 86px;
+    h1 {
+      font-family: Raleway;
+      font-style: normal;
+      font-weight: 800;
+      font-size: 72px;
+      line-height: 85px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-shadow: 0px 5px 12px rgba(6, 5, 19, 0.25);
+      border-radius: 5px;
+      background: linear-gradient(
+        271.88deg,
+        #3887fe 4.26%,
+        #3ba0ff 51.37%,
+        #5fb2ff 99.01%
+      );
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    @media (max-width: 1350px) {
+      h1 {
+        font-size: 60px;
+      }
+    }
+
+    hr {
+      width: 175px;
+      height: 0px;
+      border: 2px solid #1288e8;
+      border-radius: 2px;
+      margin-top: 17px;
+    }
+    p {
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 24px;
+      line-height: 28px;
+      color: #ffffff;
+      text-shadow: 0px 4px 20px rgba(1, 143, 255, 0.15);
+      margin-top: 24px;
+    }
   }
 }
 </style>
