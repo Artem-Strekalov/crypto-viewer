@@ -7,7 +7,7 @@
         <input type="text" placeholder="E-mail or login" />
       </div>
       <div class="input-password">
-        <img class="castle" src="..\assets\icon-password.svg" alt="" />
+        <img class="lock" src="..\assets\icon-password.svg" alt="" />
         <input type="password" placeholder="Your password" />
         <img src="..\assets\password-icon.svg" alt="" />
       </div>
@@ -34,18 +34,13 @@ export default {
   height: 100vh;
   display: flex;
   align-items: center;
-  @media (max-width: 1024px) {
-    .content{
-      flex-direction: column;
-    }
-  }
+  justify-content: center;
   .authorization-window {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 480px;
     height: 595px;
-    margin-left: 106px;
     background: linear-gradient(180deg, #1e1156 0%, rgba(28, 35, 64, 0) 100%);
     filter: drop-shadow(0px 25px 25px rgba(0, 3, 32, 0.5));
     border-radius: 8px;
@@ -58,6 +53,12 @@ export default {
       line-height: 42px;
       color: #ffffff;
       text-shadow: 0px 4px 20px rgba(1, 143, 255, 0.15);
+    }
+    @media (max-width: 375px) {
+      h2 {
+        margin-top: 50px;
+        font-size: 26px;
+      }
     }
     .input-login {
       margin-top: 62px;
@@ -91,6 +92,25 @@ export default {
         margin: 10px 16px 0px 16px;
       }
     }
+    @media (max-width: 375px) {
+      .input-login {
+        margin-top: 32px;
+        width: 250px;
+        height: 40px;
+        input {
+          width: 140px;
+          height: 40px;
+          font-size: 15px;
+        }
+        img {
+          height: 38px;
+          width: 38px;
+        }
+        ::-webkit-input-placeholder {
+          font-size: 14px;
+        }
+      }
+    }
     .input-password {
       margin-top: 26px;
       display: flex;
@@ -120,8 +140,31 @@ export default {
       :focus::-webkit-input-placeholder {
         color: transparent;
       }
-      .castle {
+      .lock {
         margin: 10px 16px 0px 16px;
+      }
+    }
+    @media (max-width: 375px) {
+      .input-password {
+        margin-top: 20px;
+        width: 250px;
+        height: 40px;
+        input {
+          width: 140px;
+          height: 40px;
+          font-size: 15px;
+        }
+        .lock {
+          height: 38px;
+          width: 38px;
+        }
+        img {
+          width: 22px;
+          height: 18px;
+        }
+        ::-webkit-input-placeholder {
+          font-size: 14px;
+        }
       }
     }
     .button {
@@ -174,6 +217,31 @@ export default {
         color: white;
       }
     }
+    @media (max-width: 375px) {
+      .button {
+        margin-top: 32px;
+        .singUP,
+        .singIN {
+          width: 90px;
+          height: 38px;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+  @media (max-width: 1200px) {
+    .authorization-window {
+      padding: 0px 50px 0px 50px;
+    }
+  }
+  @media (max-width: 375px) {
+    .authorization-window {
+      width: 300px;
+      height: 400px;
+      margin: 0px;
+      padding: 0px;
+      margin-top: 60px;
+    }
   }
   .main-inscription {
     display: flex;
@@ -204,13 +272,23 @@ export default {
         font-size: 60px;
       }
     }
-
+    @media (max-width: 375px) {
+      h1 {
+        font-size: 40px;
+        line-height: 50px;
+      }
+    }
     hr {
       width: 175px;
       height: 0px;
       border: 2px solid #1288e8;
       border-radius: 2px;
       margin-top: 17px;
+    }
+    @media (max-width: 375px) {
+      hr {
+        margin-top: 0px;
+      }
     }
     p {
       font-family: Roboto;
@@ -222,6 +300,29 @@ export default {
       text-shadow: 0px 4px 20px rgba(1, 143, 255, 0.15);
       margin-top: 24px;
     }
+    @media (max-width: 375px) {
+      p {
+        display: none;
+      }
+    }
+  }
+  @media (max-width: 1200px) {
+    .main-inscription {
+      text-align: center;
+      margin-left: 40px;
+    }
+  }
+  @media (max-width: 375px) {
+    .main-inscription {
+      margin: 0px;
+      margin-top: 145px;
+    }
+  }
+}
+@media (max-width: 375px) {
+  .content {
+    flex-direction: column-reverse;
+    height: 100%;
   }
 }
 </style>
