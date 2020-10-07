@@ -12,8 +12,8 @@
         <img src="..\assets\password-icon.svg" alt="" />
       </div>
       <div class="button">
-        <button class="singUP">SING UP</button
-        ><button class="singIN">SING IN</button>
+        <button>SING UP</button>
+        <button class="singIN">SING IN</button>
       </div>
     </div>
     <div class="main-inscription">
@@ -171,8 +171,7 @@ export default {
       display: flex;
       justify-content: space-around;
       margin-top: 64px;
-      .singUP {
-        margin-right: 32px;
+      button {
         width: 105px;
         height: 42px;
         background: linear-gradient(88.43deg, #2f3453 11.5%, #242845 76.7%);
@@ -184,30 +183,11 @@ export default {
         font-size: 16px;
         line-height: 19px;
         color: #949ec0;
-      }
-      .singUP:hover {
-        background: linear-gradient(
-          271.88deg,
-          #3887fe 4.26%,
-          #3ba0ff 51.37%,
-          #5fb2ff 99.01%
-        );
-        color: white;
       }
       .singIN {
-        width: 105px;
-        height: 42px;
-        background: linear-gradient(88.43deg, #2f3453 11.5%, #242845 76.7%);
-        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
-        border-radius: 8px;
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 16px;
-        line-height: 19px;
-        color: #949ec0;
+        margin-left: 32px;
       }
-      .singIN:hover {
+      button:hover {
         background: linear-gradient(
           271.88deg,
           #3887fe 4.26%,
@@ -220,8 +200,7 @@ export default {
     @media (max-width: 375px) {
       .button {
         margin-top: 32px;
-        .singUP,
-        .singIN {
+        button {
           width: 90px;
           height: 38px;
           font-size: 13px;
