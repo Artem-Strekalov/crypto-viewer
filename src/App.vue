@@ -1,20 +1,22 @@
 <template>
-  <div id="app">
-    <AuthorizationPage />
-  </div>
+  <AuthorizationPage/>
 </template>
 
 <script>
-import AuthorizationPage from "./components/AuthorizationPage";
+import AuthorizationPage from './components/AuthorizationPage';
 
 export default {
-  name: "App",
+  name: 'App',
+
   components: {
-    AuthorizationPage,
+    AuthorizationPage
   },
+
+  data: () => ({
+    //
+  }),
 };
 </script>
-
 <style lang="scss" >
 @import "null-style.scss";
 body{
