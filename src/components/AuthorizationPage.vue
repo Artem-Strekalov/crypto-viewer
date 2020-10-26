@@ -6,7 +6,7 @@
         <v-icon class="login-icon">account_box</v-icon>
         <v-text-field
           color="red"
-          v-model="message1"
+          v-model="login"
           label="E-mail or login"
           clearable
         ></v-text-field>
@@ -14,22 +14,22 @@
       <div class="password">
         <v-icon class="password-icon">lock</v-icon>
         <v-text-field
-          :append-icon="show4 ? 'mdi-eye' : 'mdi-eye-off'"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           :rules="[rules.required, rules.emailMatch]"
-          :type="show4 ? 'text' : 'password'"
-          name="input-10-2"
+          :type="showPassword ? 'text' : 'password'"
+          name="password"
           label="Your password"
           hint="At least 8 characters"
           value=""
           error
-          @click:append="show4 = !show4"
+          @click:append="showPassword = !showPassword"
         ></v-text-field>
       </div>
       <div class="button">
         <v-btn
-          :loading="loading2"
-          :disabled="loading2"
-          @click="loader = 'loading2'"
+          :loading="waitingDownload"
+          :disabled="waitingDownload"
+          @click="loader = 'waitingDownload'"
         >
           SING UP
           <template v-slot:loader>
@@ -38,9 +38,9 @@
         </v-btn>
         <v-btn
           class="singIn"
-          :loading="loading2"
-          :disabled="loading2"
-          @click="loader = 'loading2'"
+          :loading="waitingDownload"
+          :disabled="waitingDownload"
+          @click="loader = 'waitingDownload'"
         >
           SING IN
           <template v-slot:loader>
@@ -62,10 +62,7 @@ export default {
   name: "AuthorizationPage",
   data() {
     return {
-      show1: false,
-      show2: true,
-      show3: false,
-      show4: false,
+      showPassword: false,
       password: "",
       rules: {
         required: (value) => !!value || "",
@@ -83,7 +80,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-
   .authorization-window {
     display: flex;
     flex-direction: column;
@@ -94,7 +90,6 @@ export default {
     filter: drop-shadow(0px 25px 25px rgba(0, 3, 32, 0.5));
     border-radius: 8px;
     padding: 0px 50px 0px 50px;
-
     h2 {
       margin-top: 82px;
       font-family: Roboto;
@@ -156,7 +151,6 @@ export default {
         border-color: #1288e8;
       }
     }
-
     .button {
       width: 100%;
       display: flex;
@@ -194,7 +188,6 @@ export default {
       }
     }
   }
-
   @media (max-width: 770px) {
     .authorization-window {
       margin-left: 30px;
@@ -214,7 +207,6 @@ export default {
     flex-direction: column;
     align-items: center;
     margin-left: 86px;
-
     h1 {
       font-family: Raleway;
       font-style: normal;
@@ -234,20 +226,17 @@ export default {
       background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-
     @media (max-width: 1350px) {
       h1 {
         font-size: 60px;
       }
     }
-
     @media (max-width: 375px) {
       h1 {
         font-size: 40px;
         line-height: 50px;
       }
     }
-
     hr {
       width: 175px;
       height: 0px;
@@ -261,7 +250,6 @@ export default {
         margin-top: 0px;
       }
     }
-
     p {
       font-family: Roboto;
       font-style: normal;
@@ -272,28 +260,24 @@ export default {
       text-shadow: 0px 4px 20px rgba(1, 143, 255, 0.15);
       margin-top: 24px;
     }
-
     @media (max-width: 375px) {
       p {
         display: none;
       }
     }
   }
-
   @media (max-width: 1200px) {
     .main-inscription {
       text-align: center;
       margin-left: 30px;
     }
   }
-
   @media (max-width: 375px) {
     .main-inscription {
       margin: 0px;
     }
   }
 }
-
 @media (max-width: 375px) {
   .content {
     flex-direction: column-reverse;
