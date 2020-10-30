@@ -6,7 +6,7 @@
         <v-icon class="login-icon">account_box</v-icon>
         <v-text-field
           color="red"
-          v-model="login"
+          v-model="email"
           label="E-mail or login"
           clearable
         ></v-text-field>
@@ -14,34 +14,25 @@
       <div class="password">
         <v-icon class="password-icon">lock</v-icon>
         <v-text-field
+          v-model="password"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           :rules="[rules.required, rules.emailMatch]"
           :type="showPassword ? 'text' : 'password'"
           name="password"
           label="Your password"
-          hint="At least 8 characters"
+          hint="At least 6 characters"
           value=""
-          error
           @click:append="showPassword = !showPassword"
         ></v-text-field>
       </div>
       <div class="button">
-        <v-btn
-          :loading="waitingDownload"
-          :disabled="waitingDownload"
-          @click="loader = 'waitingDownload'"
-        >
+        <v-btn @click="checkIn">
           SING UP
           <template v-slot:loader>
             <span>Loading...</span>
           </template>
         </v-btn>
-        <v-btn
-          class="singIn"
-          :loading="waitingDownload"
-          :disabled="waitingDownload"
-          @click="loader = 'waitingDownload'"
-        >
+        <v-btn class="singIn" @click="authentication">
           SING IN
           <template v-slot:loader>
             <span>Loading...</span>
@@ -58,23 +49,45 @@
 </template>
 
 <script>
+import authDb from "../firebase";
 export default {
-  name: "AuthorizationPage",
+  name: "Authorization",
   data() {
     return {
       showPassword: false,
+      email: "",
       password: "",
       rules: {
         required: (value) => !!value || "",
-        min: (v) => v.length >= 8 || "Min 8 characters",
+        min: (v) => v.length >= 6 || "Min 6 characters",
         emailMatch: () => "",
       },
     };
   },
+  methods: {
+    authentication() {
+      authDb.signInWithEmailAndPassword(this.email, this.password).then(function () {
+          alert("Вы успешно вошли!");
+        })
+        .catch(function (error) {
+          alert("Ошибка " + error.message);
+        });
+    },
+    checkIn() {
+    authDb
+      .createUserWithEmailAndPassword(this.email, this.password)
+      .then(function () {
+        alert("Пользователь успешно зарегестрирован");
+      })
+      .catch(function (error) {
+        alert("Ошибка " + error.message);
+      });
+  },
+  },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 .content {
   height: 100vh;
   display: flex;
