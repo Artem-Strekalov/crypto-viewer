@@ -27,13 +27,13 @@
       </div>
       <div class="button">
         <v-btn @click="checkIn">
-          SING UP
+          SIGN UP
           <template v-slot:loader>
             <span>Loading...</span>
           </template>
         </v-btn>
         <v-btn class="singIn" @click="authentication">
-          SING IN
+          SIGN IN
           <template v-slot:loader>
             <span>Loading...</span>
           </template>
@@ -66,23 +66,26 @@ export default {
   },
   methods: {
     authentication() {
-      authDb.signInWithEmailAndPassword(this.email, this.password).then(function () {
-          alert("Вы успешно вошли!");
+      authDb
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(() => {
+          alert('Вы успешно вошли!')
+           this.$router.replace("home") 
+        })
+        .catch((error) => {
+          alert("Ошибка " + error.message);
+        });
+    },
+    checkIn() {
+      authDb
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then(function () {
+          alert("Пользователь успешно зарегестрирован");
         })
         .catch(function (error) {
           alert("Ошибка " + error.message);
         });
     },
-    checkIn() {
-    authDb
-      .createUserWithEmailAndPassword(this.email, this.password)
-      .then(function () {
-        alert("Пользователь успешно зарегестрирован");
-      })
-      .catch(function (error) {
-        alert("Ошибка " + error.message);
-      });
-  },
   },
 };
 </script>
