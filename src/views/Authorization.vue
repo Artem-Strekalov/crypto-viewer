@@ -16,11 +16,11 @@
         <v-text-field
           v-model="password"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-          :rules="[rules.required, rules.emailMatch]"
+          :rules="[rules.required, rules.min]"
           :type="showPassword ? 'text' : 'password'"
-          name="password"
+          name="input-10-2"
           label="Your password"
-          hint="At least 6 characters"
+          hint=""
           value=""
           @click:append="showPassword = !showPassword"
         ></v-text-field>
@@ -41,7 +41,7 @@
       </div>
     </div>
     <div class="main-inscription">
-      <h1>CYPTO VIEWER</h1>
+      <h1>CRYPTO VIEWER</h1>
       <hr />
       <p>Your currency dashboard</p>
     </div>
@@ -55,12 +55,11 @@ export default {
   data() {
     return {
       showPassword: false,
-      email: "",
       password: "",
+      email: "",
       rules: {
         required: (value) => !!value || "",
-        min: (v) => v.length >= 6 || "Min 6 characters",
-        emailMatch: () => "",
+        min: (v) => v.length >= 8 || "Минимум 8 символов",
       },
     };
   },
@@ -69,8 +68,8 @@ export default {
       authDb
         .signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
-          alert('Вы успешно вошли!')
-           this.$router.replace("home") 
+          alert("Вы успешно вошли!");
+          this.$router.replace("home");
         })
         .catch((error) => {
           alert("Ошибка " + error.message);
@@ -153,6 +152,7 @@ export default {
           font-family: Roboto;
           font-size: 15px;
           color: #ffffff;
+          transition-delay: 3600s;
         }
         .v-input__slot:after {
           border-color: #1288e8;
@@ -160,6 +160,9 @@ export default {
         .v-input__slot:before {
           border-color: #1288e8;
         }
+      }
+      .theme--light.v-messages {
+        color: #1288e8;
       }
       .theme--light.v-text-field:not(.v-input--has-state):hover
         > .v-input__control
