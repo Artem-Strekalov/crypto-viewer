@@ -78,10 +78,11 @@ export default {
     checkIn() {
       authDb
         .createUserWithEmailAndPassword(this.email, this.password)
-        .then(function () {
+        .then( ()=> {
           alert("Пользователь успешно зарегестрирован");
+          this.$router.replace("home");
         })
-        .catch(function (error) {
+        .catch( (error)=> {
           alert("Ошибка " + error.message);
         });
     },
