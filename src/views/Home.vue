@@ -32,7 +32,7 @@
       <div class="header">
         <div class="date">
           <p>Overview</p>
-          <p class="dateTime">{{ date }}</p>
+          <p class="dateTime">{{pageTime}}</p>
         </div>
         <v-btn> Add Curency </v-btn>
       </div>
@@ -51,6 +51,8 @@ export default {
         this.$router.replace("authorization");
       });
     },
+  },
+  computed:{
     pageTime() {
       let monthList = [
         "January",
@@ -66,10 +68,18 @@ export default {
         "November",
         "December",
       ];
-      let m = monthList[new Date().getMonth()]
-    console.log(m)
+      let days = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thurasday",
+        "Friday",
+        "Saturday",
+      ];
+      return new Date().getDate() + " " + monthList[new Date().getMonth()] + ', ' + days[new Date().getDay()]
     },
-  },
+  }
 };
 </script>
 <style lang="scss" scoped>
