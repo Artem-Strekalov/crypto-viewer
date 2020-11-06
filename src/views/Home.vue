@@ -29,7 +29,13 @@
       </div>
     </div>
     <div class="main-content">
-      <div class="header"></div>
+      <div class="header">
+        <div class="date">
+          <p>Overview</p>
+          <p class="dateTime">{{ date }}</p>
+        </div>
+        <v-btn> Add Curency </v-btn>
+      </div>
     </div>
   </div>
 </template>
@@ -38,11 +44,30 @@
 import authDb from "../firebase";
 export default {
   name: "Home",
+  date: "",
   methods: {
     out() {
       authDb.signOut().then(() => {
         this.$router.replace("authorization");
       });
+    },
+    pageTime() {
+      let monthList = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+      let m = monthList[new Date().getMonth()]
+    console.log(m)
     },
   },
 };
@@ -51,6 +76,7 @@ export default {
 .content {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   .bar {
     padding: 0px 15px 0px 15px;
     display: flex;
@@ -191,12 +217,54 @@ export default {
     }
   }
   .main-content {
-    height: 100vh;
     width: 100%;
     border-top: 1px solid #2d317a;
-    margin: 188px 32px 0px 32px;
-    .header{
-      
+    margin: 88px 32px 1px 32px;
+    .header {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 24px;
+      .date {
+        display: flex;
+        align-items: center;
+        p {
+          font-family: Open Sans;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 18px;
+          line-height: 25px;
+          color: #ffffff;
+        }
+        .dateTime {
+          margin-left: 40px;
+          font-family: Open Sans;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 19px;
+          text-transform: capitalize;
+          color: #54669c;
+          border-radius: 5px;
+        }
+      }
+      .v-btn {
+        width: 125px;
+        height: 32px;
+        border-radius: 25px;
+        background: linear-gradient(
+          271.88deg,
+          #3887fe 4.26%,
+          #3ba0ff 51.37%,
+          #5fb2ff 99.01%
+        );
+        font-family: Open Sans;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        color: #ffffff;
+        text-transform: capitalize;
+      }
     }
   }
 }
