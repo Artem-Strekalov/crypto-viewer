@@ -45,6 +45,21 @@
       <hr />
       <p>Your currency dashboard</p>
     </div>
+    <!-- alert-error -->
+    <div class="alert-error">
+      <v-snackbar v-model="alertError" :multi-line="multiLineError">
+        {{ textError }}
+        <template v-slot:action="{ attrs }">
+          <v-btn text v-bind="attrs" @click="alertError = false"> Close </v-btn>
+        </template>
+      </v-snackbar>
+    </div>
+    <!-- alert-success-->
+    <div class="success-message">
+      <v-snackbar v-model="alertSuccess">
+        {{ textSuccess }}
+      </v-snackbar>
+    </div>
   </div>
 </template>
 
@@ -54,6 +69,14 @@ export default {
   name: "Authorization",
   data() {
     return {
+      multiLineError: true,
+      alertError: false,
+      textError: ``,
+
+      multiLineSuccess: true,
+      alertSuccess: false,
+      textSuccess: ``,
+
       showPassword: false,
       password: "",
       email: "",
@@ -64,25 +87,33 @@ export default {
     };
   },
   methods: {
+    switchToHome() {
+      return this.$router.replace("home");
+    },
     authentication() {
       authDb
         .signInWithEmailAndPassword(this.email, this.password)
         .then(() => {
-          alert("Вы успешно вошли!");
-          this.$router.replace("home");
+          this.alertSuccess = true;
+          this.textSuccess = "Вы успешно вошли!";
+          setTimeout(this.switchToHome, 2000);
         })
         .catch((error) => {
-          alert("Ошибка " + error.message);
+          this.alertError = true;
+          this.textError = error;
         });
     },
     checkIn() {
       authDb
         .createUserWithEmailAndPassword(this.email, this.password)
-        .then(function () {
-          alert("Пользователь успешно зарегестрирован");
+        .then(() => {
+          this.alertSuccess = true;
+          this.textSuccess = "Пользователь успешно зарегестрирован!";
+          setTimeout(this.switchToHome, 2000);
         })
-        .catch(function (error) {
-          alert("Ошибка " + error.message);
+        .catch((error) => {
+          this.alertError = true;
+          this.textError = error;
         });
     },
   },
@@ -95,6 +126,31 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  .alert-error,
+  .success-message {
+    .v-snack:not(.v-snack--centered):not(.v-snack--top) {
+      align-items: flex-start;
+      margin-top: 80px;
+    }
+    .v-snack__wrapper {
+      background-color: red;
+      color: rgba(255, 255, 255, 0.87);
+      font-family: Raleway;
+      font-style: normal;
+      font-weight: 800;
+      font-size: 72px;
+      line-height: 85px;
+      letter-spacing: 0.05em;
+      border-radius: 5px;
+      min-width: 30px;
+    }
+  }
+  .success-message {
+    .v-snack__wrapper {
+      background-color: green;
+    }
+  }
+
   .authorization-window {
     display: flex;
     flex-direction: column;
