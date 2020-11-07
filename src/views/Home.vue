@@ -42,6 +42,7 @@
 
 <script>
 import authDb from "../firebase";
+import { DateTime } from "luxon";
 export default {
   name: "Home",
   date: "",
@@ -54,30 +55,9 @@ export default {
   },
   computed:{
     pageTime() {
-      let monthList = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ];
-      let days = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thurasday",
-        "Friday",
-        "Saturday",
-      ];
-      return new Date().getDate() + " " + monthList[new Date().getMonth()] + ', ' + days[new Date().getDay()]
+      let dt = DateTime.local();
+      let format = {month: 'long', day: 'numeric', };
+      return dt.setLocale('en-GB').toLocaleString(format) + ', ' + dt.toFormat('EEEE')
     },
   }
 };
