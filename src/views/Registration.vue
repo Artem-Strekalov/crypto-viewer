@@ -1,13 +1,22 @@
 <template>
-  <div class="content" data-app>
+  <div class="content">
     <div class="authorization-window">
-      <h2>Welcome!</h2>
+      <h2>Create your account</h2>
       <div class="login">
         <v-icon class="login-icon">account_box</v-icon>
         <v-text-field
           color="red"
+          v-model="Username"
+          label="Username"
+          clearable
+        ></v-text-field>
+      </div>
+      <div class="login">
+        <v-icon class="login-icon">mail_outline</v-icon>
+        <v-text-field
+          color="red"
           v-model="email"
-          label="E-mail or login"
+          label="E-mail"
           clearable
         ></v-text-field>
       </div>
@@ -19,52 +28,36 @@
           :rules="[rules.required, rules.min]"
           :type="showPassword ? 'text' : 'password'"
           name="input-10-2"
-          label="Your password"
+          label="Password"
           hint=""
           value=""
           @click:append="showPassword = !showPassword"
         ></v-text-field>
       </div>
       <div class="button">
-        <v-btn class="singIn" @click="authentication">
-          SIGN IN
+        <v-btn @click="checkIn">
+          SIGN UP
           <template v-slot:loader>
             <span>Loading...</span>
           </template>
         </v-btn>
       </div>
-      <a @click="goToRegistration" > Don't have an account? </a>
-    </div>
-    <div class="main-inscription">
-      <h1>CRYPTO VIEWER</h1>
-      <hr />
-      <p>Your currency dashboard</p>
-    </div>
-    <!-- alert-error -->
-    <div class="alert-error">
-      <v-snackbar v-model="alertError" :multi-line="multiLineError">
-        {{ textError }}
-        <template v-slot:action="{ attrs }">
-          <v-btn text v-bind="attrs" @click="alertError = false"> Close </v-btn>
-        </template>
-      </v-snackbar>
+      <a @click="goToAuthorization"> Do you have an account? </a>
     </div>
   </div>
 </template>
-
 <script>
-import authDb from "../firebase";
 export default {
-  name: "Authorization",
+  name: "Registration",
   data() {
     return {
       multiLineError: true,
       alertError: false,
       textError: ``,
-      dialog: false,
       showPassword: false,
       password: "",
       email: "",
+      Username: "",
       rules: {
         required: (value) => !!value || "",
         min: (v) => v.length >= 8 || "Минимум 8 символов",
@@ -72,62 +65,15 @@ export default {
     };
   },
   methods: {
-    goToRegistration() {
-      this.$router.replace("registration");
-    },
-    authentication() {
-      authDb
-        .signInWithEmailAndPassword(this.email, this.password)
-        .then(() => {
-          this.$router.replace("home");
-        })
-        .catch((error) => {
-          this.alertError = true;
-          this.textError = error;
-        });
-    },
-    checkIn() {
-      authDb
-        .createUserWithEmailAndPassword(this.email, this.password)
-        .then(() => {
-          this.$router.replace("home");
-        })
-        .catch((error) => {
-          this.alertError = true;
-          this.textError = error;
-        });
+    goToAuthorization() {
+      this.$router.replace("authorization");
     },
   },
 };
 </script>
-
-<style lang="scss">
+<style lang="scss" scoped>
 .content {
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  .alert-error,
-  .success-message {
-    .v-snack:not(.v-snack--centered):not(.v-snack--top) {
-      align-items: flex-start;
-      margin-top: 80px;
-    }
-    .v-snack__wrapper {
-      background-color: red;
-      color: rgba(255, 255, 255, 0.87);
-      font-family: Raleway;
-      font-style: normal;
-      font-weight: 800;
-      font-size: 72px;
-      line-height: 85px;
-      letter-spacing: 0.05em;
-      border-radius: 5px;
-      min-width: 30px;
-    }
-  }
-
-
   .authorization-window {
     display: flex;
     flex-direction: column;
@@ -139,7 +85,7 @@ export default {
     border-radius: 8px;
     padding: 0px 50px 0px 50px;
     h2 {
-      margin-top: 82px;
+      margin: 82px 0 36px 0;
       font-family: Roboto;
       font-style: normal;
       font-weight: 500;
@@ -148,17 +94,11 @@ export default {
       color: #ffffff;
       text-shadow: 0px 4px 20px rgba(1, 143, 255, 0.15);
     }
-    @media (max-width: 375px) {
-      h2 {
-        margin-top: 50px;
-        font-size: 26px;
-      }
-    }
     .theme--light.v-icon {
       color: #616a8b;
     }
     .login {
-      margin-top: 62px;
+      margin-top: 26px;
     }
     .password {
       margin-top: 26px;
@@ -240,7 +180,6 @@ export default {
       }
     }
     a {
-      margin-top: 103px;
       font-family: Roboto;
       font-style: normal;
       font-weight: normal;
@@ -250,100 +189,19 @@ export default {
       color: #5fb2ff;
     }
   }
-  @media (max-width: 770px) {
-    .authorization-window {
-      margin-left: 30px;
-    }
-  }
-  @media (max-width: 375px) {
+
+  @media (max-width: 414px) {
     .authorization-window {
       width: 300px;
-      height: 400px;
+      height: 500px;
       margin: 0px;
-      padding: 0px 50px 0px 50px;
-      margin-top: 60px;
-    }
-  }
-  .main-inscription {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-left: 86px;
-    h1 {
-      font-family: Raleway;
-      font-style: normal;
-      font-weight: 800;
-      font-size: 72px;
-      line-height: 85px;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      text-shadow: 0px 5px 12px rgba(6, 5, 19, 0.25);
-      border-radius: 5px;
-      background: linear-gradient(
-        271.88deg,
-        #3887fe 4.26%,
-        #3ba0ff 51.37%,
-        #5fb2ff 99.01%
-      );
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    @media (max-width: 1350px) {
-      h1 {
-        font-size: 60px;
+      padding: 0px 20px 0px 20px;
+      margin-top: 0px;
+      h2 {
+        margin-top: 30px;
+        font-size: 26px;
       }
     }
-    @media (max-width: 375px) {
-      h1 {
-        font-size: 40px;
-        line-height: 50px;
-      }
-    }
-    hr {
-      width: 175px;
-      height: 0px;
-      border: 2px solid #1288e8;
-      border-radius: 2px;
-      margin-top: 17px;
-    }
-
-    @media (max-width: 375px) {
-      hr {
-        margin-top: 0px;
-      }
-    }
-    p {
-      font-family: Roboto;
-      font-style: normal;
-      font-weight: 300;
-      font-size: 24px;
-      line-height: 28px;
-      color: #ffffff;
-      text-shadow: 0px 4px 20px rgba(1, 143, 255, 0.15);
-      margin-top: 24px;
-    }
-    @media (max-width: 375px) {
-      p {
-        display: none;
-      }
-    }
-  }
-  @media (max-width: 1200px) {
-    .main-inscription {
-      text-align: center;
-      margin-left: 30px;
-    }
-  }
-  @media (max-width: 375px) {
-    .main-inscription {
-      margin: 0px;
-    }
-  }
-}
-@media (max-width: 375px) {
-  .content {
-    flex-direction: column-reverse;
-    height: 100%;
   }
 }
 </style>
