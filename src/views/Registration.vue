@@ -6,7 +6,7 @@
         <v-icon class="login-icon">account_box</v-icon>
         <v-text-field
           color="red"
-          v-model="Username"
+          v-model="userName"
           label="Username"
           clearable
         ></v-text-field>
@@ -36,17 +36,23 @@
       </div>
       <div class="button">
         <v-btn @click="checkIn">
-          SIGN UP
-          <template v-slot:loader>
-            <span>Loading...</span>
-          </template>
+          SIGN UP        
         </v-btn>
       </div>
-      <a @click="goToAuthorization"> Do you have an account? </a>
+      <a href="#/authorization" class="goAuth" > Do you have an account? </a>
+    </div>
+    <div class="alert-error">
+      <v-snackbar v-model="alertError" :multi-line="multiLineError">
+        {{ textError }}
+        <template v-slot:action="{ attrs }">
+          <v-btn text v-bind="attrs" @click="alertError = false"> Close </v-btn>
+        </template>
+      </v-snackbar>
     </div>
   </div>
 </template>
 <script>
+import authDb from "../firebase";
 export default {
   name: "Registration",
   data() {
@@ -57,7 +63,7 @@ export default {
       showPassword: false,
       password: "",
       email: "",
-      Username: "",
+      userName: "",
       rules: {
         required: (value) => !!value || "",
         min: (v) => v.length >= 8 || "Минимум 8 символов",
@@ -65,9 +71,17 @@ export default {
     };
   },
   methods: {
-    goToAuthorization() {
-      this.$router.replace("authorization");
-    },
+     checkIn() {
+      authDb
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then(() => {
+          this.$router.replace("home");
+        })
+        .catch((error) => {
+          this.alertError = true;
+          this.textError = error;
+        });
+    }, 
   },
 };
 </script>
@@ -85,7 +99,7 @@ export default {
     border-radius: 8px;
     padding: 0px 50px 0px 50px;
     h2 {
-      margin: 82px 0 36px 0;
+      margin: 50px 0 36px 0;
       font-family: Roboto;
       font-style: normal;
       font-weight: 500;
@@ -179,7 +193,8 @@ export default {
         }
       }
     }
-    a {
+    .goAuth {
+      margin-top: 50px;
       font-family: Roboto;
       font-style: normal;
       font-weight: normal;
@@ -198,8 +213,15 @@ export default {
       padding: 0px 20px 0px 20px;
       margin-top: 0px;
       h2 {
-        margin-top: 30px;
+        margin: 30px 0 26px 0;
         font-size: 26px;
+      }
+      .button{
+        margin-top: 26px;
+      }
+      .goAuth{
+        font-size: 12px;
+        margin-top: 30px;
       }
     }
   }

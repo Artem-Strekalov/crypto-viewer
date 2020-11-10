@@ -33,7 +33,7 @@
           </template>
         </v-btn>
       </div>
-      <a @click="goToRegistration" > Don't have an account? </a>
+      <a href="#/registration"> Don't have an account? </a>
     </div>
     <div class="main-inscription">
       <h1>CRYPTO VIEWER</h1>
@@ -72,9 +72,6 @@ export default {
     };
   },
   methods: {
-    goToRegistration() {
-      this.$router.replace("registration");
-    },
     authentication() {
       authDb
         .signInWithEmailAndPassword(this.email, this.password)
@@ -86,7 +83,7 @@ export default {
           this.textError = error;
         });
     },
-    checkIn() {
+    /* checkIn() {
       authDb
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(() => {
@@ -96,7 +93,7 @@ export default {
           this.alertError = true;
           this.textError = error;
         });
-    },
+    }, */
   },
 };
 </script>
@@ -107,8 +104,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  .alert-error,
-  .success-message {
+  .alert-error {
     .v-snack:not(.v-snack--centered):not(.v-snack--top) {
       align-items: flex-start;
       margin-top: 80px;
@@ -126,7 +122,6 @@ export default {
       min-width: 30px;
     }
   }
-
 
   .authorization-window {
     display: flex;
